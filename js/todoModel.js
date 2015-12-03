@@ -4,6 +4,7 @@ var app = app || {};
 	'use strict';
 
 	var Utils = app.Utils;
+	Utils.reset(); // clear localStorage
 	// Generic "model" object. You can use whatever
 	// framework you want. For this application it
 	// may not even be worth separating this logic

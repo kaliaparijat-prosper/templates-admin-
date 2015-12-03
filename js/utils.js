@@ -45,6 +45,10 @@ var app = app || {};
 				}
 			}
 			return newObj;
+		},
+
+		reset: function() {
+			localStorage.clear();
 		}
 	};
 })();
