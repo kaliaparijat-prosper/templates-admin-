@@ -36,37 +36,47 @@ var app = app || {};
 		},
 
 		render: function () {
-			var footer;
-			var main;
-			var todos = this.props.store.todos;
-		  var todoItems = [
-				<li>
-					<div className="view">
-						<input
-								className="toggle"
-								type="checkbox"
-								checked={false}
-						/>
-						<label>
-							Uncompleted task
-						</label>
-						<button className="destroy" />
-					</div>
-				</li>,
-				<li className="completed">
-					<div className="view">
-						<input
-								className="toggle"
-								type="checkbox"
-								checked={true}
-						/>
-						<label>
-							Completed task
-						</label>
-						<button className="destroy" />
-					</div>
-				</li>
-			];
+			var footer,
+			main,
+			todoItem,
+			todos = this.props.store.todos,
+			todoItems = [];
+
+			todos.forEach(function(todo) {
+			if (todo.completed === false) {
+						todoItems.push(
+						<li>
+							<div className="view">
+								<input
+										className="toggle"
+										type="checkbox"
+										checked={false}
+								/>
+								<label>
+									Uncompleted task
+								</label>
+								<button className="destroy" />
+							</div>
+						</li>)
+				}
+				else {
+					todoItems.push(
+					<li className="completed">
+									<div className="view">
+										<input
+												className="toggle"
+												type="checkbox"
+												checked={true}
+										/>
+										<label>
+											Completed task
+										</label>
+										<button className="destroy" />
+									</div>
+								</li>
+					);
+				}
+			});
 
 			footer = <TodoFooter
 	        count= {todos.length}
