@@ -4,11 +4,11 @@
 Install a local webserver
 
     npm install -g local-web-server
-    
+
 Run the web server in the root directory (root directory is the one with index.html)
 
     ws
-    
+
 Point your browser to http://localhost:8000
 
 ## Requirements
@@ -27,10 +27,7 @@ Acceptance criteria
 
 Keep in mind that
 - Everything is under /js folder
-- The model/collection for storing todo is todoModel.js and is available application wide with "app.store" or as 
-"store" propery inside the app. Id doesn't need to be implemented.
+- The model/collection for storing todo is todoModel.js and is available application wide with "app.store" or as
+"store" property inside the app. Id doesn't need to be implemented.
 - The complete list of todos is available available in the model "app.store.todos"
 - Any changes to the store, automatically triggers a re-render of the React components
-
-
-

@@ -26,11 +26,11 @@ var app = app || {};
 
 			if (val) {
 				this.props.store.addTodo(val);
-				this.resetTodoField();
+				React.findDOMNode(this.refs.newField).value = '';
 			}
 		},
 
-		toggleTodo: function(todo) {
+		toggle: function(todo) {
 			this.props.store.toggle(todo);
 			return this;
 		},
@@ -40,59 +40,31 @@ var app = app || {};
 			return this;
 		},
 
-		resetTodoField: function() {
-				React.findDOMNode(this.refs.newField).value = '';
-				return this;
+		edit: function(todo) {
+			this.setState({editing: todo.id});
+			return this;
 		},
 
 		render: function () {
 			var footer,
 			main,
-			todoItem,
 			todos = this.props.store.todos,
-			todoItems = [],
-			_this = this;
+			itemsLeft =  todos.length
+			todoItems = [];
 
 			todos.forEach(function(todo) {
-			if (todo.completed === false) {
-						todoItems.push(
-						<li>
-							<div className="view">
-								<input
-										className="toggle"
-										type="checkbox"
-										checked={false}
-										onClick={_this.toggleTodo.bind(_this, todo)}
-								/>
-								<label>
-									{todo.title}
-								</label>
-								<button className="destroy" onClick={_this.delete.bind(_this, todo)}/>
-							</div>
-						</li>)
-				}
-				else {
-					todoItems.push(
-					<li className="completed">
-									<div className="view">
-										<input
-												className="toggle"
-												type="checkbox"
-												checked={true}
-												onClick={_this.toggleTodo.bind(_this, todo)}
-										/>
-										<label>
-											{todo.title}
-										</label>
-										<button className="destroy" onClick={_this.delete.bind(_this, todo)}/>
-									</div>
-								</li>
-					);
-				}
-			});
+				todoItems.push(
+				<TodoItem
+					todo = {todo}
+					edit = {this.edit.bind(this, todo)}
+					toggle = {this.toggle.bind(this, todo)}
+					delete = {this.delete.bind(this, todo)}
+					save = {}/>
+				)
+			}, this);
 
 			footer = <TodoFooter
-	        count= {todos.length}
+	        count= {itemsLeft}
       />;
 
 			main = (
