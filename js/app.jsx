@@ -9,6 +9,7 @@ var app = app || {};
 	var ENTER_KEY = 13;
 
 	var TodoApp = React.createClass({
+
 		getInitialState: function () {
 			return {
 				editing: null
@@ -30,38 +31,24 @@ var app = app || {};
 			}
 		},
 
-		toggle: function(todo) {
-			this.props.store.toggle(todo);
-			return this;
-		},
-
-		delete: function(todo) {
-			this.props.store.destroy(todo);
-			return this;
-		},
-
-		edit: function(todo) {
-			this.setState({editing: todo.id});
-			return this;
-		},
-
 		render: function () {
 			var footer,
 			main,
-			todos = this.props.store.todos,
-			itemsLeft =  todos.length
-			todoItems = [];
+			store = this.props.store,
+			todos = store.todos,
+			todoItems = [],
+			itemsLeft = todos.reduce(function(count, todo) {
+				return (todo.completed) ? count : count + 1;
+			}, 0);
 
 			todos.forEach(function(todo) {
 				todoItems.push(
-				<TodoItem
-					todo = {todo}
-					edit = {this.edit.bind(this, todo)}
-					toggle = {this.toggle.bind(this, todo)}
-					delete = {this.delete.bind(this, todo)}
-					save = {}/>
+					<TodoItem
+						todo = {todo}
+						store = {store}
+					/>
 				)
-			}, this);
+			});
 
 			footer = <TodoFooter
 	        count= {itemsLeft}
