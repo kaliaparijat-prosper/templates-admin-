@@ -50,9 +50,7 @@ var app = app || {};
 				)
 			});
 
-			footer = <TodoFooter
-	        count= {itemsLeft}
-      />;
+			footer = <TodoFooter count= {itemsLeft} />;
 
 			main = (
 				<section className="main">
