@@ -3,8 +3,7 @@ var app = app || {};
 (function () {
 	'use strict';
 
-	var ENTER_KEY = 13,
-	ESCAPE_KEY = 27;
+	var ENTER_KEY = 13;
 
 	app.TodoItem = React.createClass({
 
@@ -21,10 +20,12 @@ var app = app || {};
 	edit: function(todo, event) {
 		var editNode = React.findDOMNode(this.refs.editField);
 		editNode.value = this.props.todo.title;	// load the text field with the current value to edit
-		editNode.focus(); // this was a real pain
-		editNode.setSelectionRange(editNode.value.length , editNode.value.length);
-		// add editing class to list field node
-		React.findDOMNode(this.refs.todoListField).className += " editing";
+
+		setTimeout(function(){
+			editNode.focus();
+		},200); // this was a real pain, I had to hack using setTimeout
+
+		React.findDOMNode(this.refs.todoListField).className += " editing";// add editing class to list field node
 		return this;
 	},
 
@@ -54,9 +55,6 @@ var app = app || {};
 			this.save(this.props.todo);
 			return ;
 		}
-
-		// for all other keys this is a NO-OP
-		return;
 	},
 
 	render: function () {
